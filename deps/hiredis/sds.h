@@ -46,6 +46,7 @@ typedef char *sds;
 
 /* Note: sdshdr5 is never used, we just access the flags byte directly.
  * However is here to document the layout of type 5 SDS strings. */
+// __attribute__ ((__packed__)) 告诉编译器取消结构在编译过程中的优化对齐（使用1字节对齐）按照实际占用字节数进行对齐 是GCC特有的语法
 struct __attribute__ ((__packed__)) sdshdr5 {
     unsigned char flags; /* 3 lsb of type, and 5 msb of string length */
     char buf[];

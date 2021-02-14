@@ -40,9 +40,9 @@
 
 static inline int sdsHdrSize(char type) {
     switch(type&SDS_TYPE_MASK) {
-        case SDS_TYPE_5:
+        case SDS_TYPE_5: // 000 & 111 = 000
             return sizeof(struct sdshdr5);
-        case SDS_TYPE_8:
+        case SDS_TYPE_8: // 001 & 111 = 001
             return sizeof(struct sdshdr8);
         case SDS_TYPE_16:
             return sizeof(struct sdshdr16);
@@ -57,11 +57,11 @@ static inline int sdsHdrSize(char type) {
 static inline char sdsReqType(size_t string_size) {
     if (string_size < 32)
         return SDS_TYPE_5;
-    if (string_size < 0xff)
+    if (string_size < 0xff) // 255
         return SDS_TYPE_8;
-    if (string_size < 0xffff)
+    if (string_size < 0xffff) // 65535 6K
         return SDS_TYPE_16;
-    if (string_size < 0xffffffff)
+    if (string_size < 0xffffffff) // 4294967295 4G
         return SDS_TYPE_32;
     return SDS_TYPE_64;
 }

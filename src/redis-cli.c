@@ -107,12 +107,12 @@
 #define clusterManagerLogOk(...) \
     clusterManagerLog(CLUSTER_MANAGER_LOG_LVL_SUCCESS,__VA_ARGS__)
 
-#define CLUSTER_MANAGER_FLAG_MYSELF     1 << 0
-#define CLUSTER_MANAGER_FLAG_SLAVE      1 << 1
-#define CLUSTER_MANAGER_FLAG_FRIEND     1 << 2
-#define CLUSTER_MANAGER_FLAG_NOADDR     1 << 3
-#define CLUSTER_MANAGER_FLAG_DISCONNECT 1 << 4
-#define CLUSTER_MANAGER_FLAG_FAIL       1 << 5
+#define CLUSTER_MANAGER_FLAG_MYSELF     1 << 0 // 1 -> 1
+#define CLUSTER_MANAGER_FLAG_SLAVE      1 << 1 // 10 -> 2
+#define CLUSTER_MANAGER_FLAG_FRIEND     1 << 2 // 100 -> 4
+#define CLUSTER_MANAGER_FLAG_NOADDR     1 << 3 // 1000 -> 8
+#define CLUSTER_MANAGER_FLAG_DISCONNECT 1 << 4 // 10000 -> 16
+#define CLUSTER_MANAGER_FLAG_FAIL       1 << 5 // 100000 -> 32
 
 #define CLUSTER_MANAGER_CMD_FLAG_FIX            1 << 0
 #define CLUSTER_MANAGER_CMD_FLAG_SLAVE          1 << 1
@@ -381,6 +381,7 @@ static sds percentDecode(const char *pe, size_t len) {
  *   path:      ["/" [<db>]]
  *
  *  [1]: https://www.iana.org/assignments/uri-schemes/prov/redis */
+// 论如何解析URL
 static void parseRedisUri(const char *uri) {
 
     const char *scheme = "redis://";
